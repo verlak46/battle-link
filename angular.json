@@ -8,7 +8,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "wargames-social-hub": {
+    "match-hammer": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -101,10 +101,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "wargames-social-hub:build:production"
+              "buildTarget": "match-hammer:build:production"
             },
             "development": {
-              "buildTarget": "wargames-social-hub:build:development"
+              "buildTarget": "match-hammer:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -115,24 +115,24 @@
         "ionic-cordova-serve": {
           "builder": "@ionic/angular-toolkit:cordova-serve",
           "options": {
-            "cordovaBuildTarget": "wargames-social-hub:ionic-cordova-build",
-            "devServerTarget": "wargames-social-hub:serve"
+            "cordovaBuildTarget": "match-hammer:ionic-cordova-build",
+            "devServerTarget": "match-hammer:serve"
           },
           "configurations": {
             "production": {
-              "cordovaBuildTarget": "wargames-social-hub:ionic-cordova-build:production",
-              "devServerTarget": "wargames-social-hub:serve:production"
+              "cordovaBuildTarget": "match-hammer:ionic-cordova-build:production",
+              "devServerTarget": "match-hammer:serve:production"
             }
           }
         },
         "ionic-cordova-build": {
           "builder": "@ionic/angular-toolkit:cordova-build",
           "options": {
-            "browserTarget": "wargames-social-hub:build"
+            "browserTarget": "match-hammer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "wargames-social-hub:build:production"
+              "browserTarget": "match-hammer:build:production"
             }
           }
         }
