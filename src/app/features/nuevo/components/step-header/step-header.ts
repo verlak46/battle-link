@@ -31,7 +31,7 @@ import { PasoWizard } from '../../nuevo-form.types';
       </div>
     </div>
   `,
-  styleUrl: './step-header.css',
+  styleUrl: './step-header.scss',
   imports: [IonIcon],
   host: {
     '[class.step--active]': 'active()',

@@ -10,7 +10,14 @@
   "projects": {
     "battle-link": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -27,7 +34,7 @@
               }
             ],
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               "node_modules/@ionic/angular/css/core.css",
               "node_modules/@ionic/angular/css/normalize.css",
               "node_modules/@ionic/angular/css/structure.css",

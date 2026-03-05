@@ -8,7 +8,7 @@ import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.html',
-  styleUrl: './perfil.css',
+  styleUrl: './perfil.scss',
   imports: [
     IonHeader,
     IonToolbar,

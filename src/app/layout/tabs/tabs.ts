@@ -18,7 +18,7 @@ import {
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.html',
-  styleUrl: './tabs.css',
+  styleUrl: './tabs.scss',
   imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
 })
 export class TabsPage {

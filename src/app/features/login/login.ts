@@ -19,7 +19,7 @@ import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrl: './login.scss',
   imports: [
     ReactiveFormsModule,
     IonContent,

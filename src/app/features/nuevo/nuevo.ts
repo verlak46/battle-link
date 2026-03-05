@@ -28,7 +28,7 @@ import { PasoDetallesComponent } from './components/paso-detalles/paso-detalles'
 @Component({
   selector: 'app-nuevo',
   templateUrl: './nuevo.html',
-  styleUrl: './nuevo.css',
+  styleUrl: './nuevo.scss',
   imports: [
     IonHeader,
     IonToolbar,

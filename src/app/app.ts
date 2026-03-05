@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
   selector: 'app-root',
   imports: [IonicModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('wargames-social-hub');
