@@ -11,7 +11,7 @@ import { Wargame } from '../../../../shared/models/IWargame';
   selector: 'app-onboarding-paso-juegos',
   template: `
     <section>
-      <h2>Juegos favoritos</h2>
+      <h3>Juegos favoritos</h3>
       <p class="onboarding__hint">
         Elige al menos un wargame para recomendarte partidas.
       </p>

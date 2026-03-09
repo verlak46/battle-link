@@ -1,9 +1,20 @@
-import { Component, OnInit, computed, inject } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonIcon,
+  IonButtons,
+} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { logOutOutline, mailOutline, personCircleOutline } from 'ionicons/icons';
+import { arrowBack, logOutOutline, mailOutline, personCircleOutline } from 'ionicons/icons';
 import { AuthService } from '../../core/services/auth.service';
+import { PerfilEditComponent } from './components/perfil-edit/perfil-edit';
 
 @Component({
   selector: 'app-perfil',
@@ -18,15 +29,17 @@ import { AuthService } from '../../core/services/auth.service';
     IonLabel,
     IonButton,
     IonIcon,
+    IonButtons,
+    PerfilEditComponent,
   ],
 })
 export class PerfilPage implements OnInit {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
 
-  user = computed(() => {
-    return this.auth.user();
-  });
+  showEdit = signal(false);
+
+  user = computed(() => this.auth.user());
 
   displayName = computed(() => this.user()?.name || 'Jugador');
   email = computed(() => this.user()?.email ?? '');
@@ -42,7 +55,7 @@ export class PerfilPage implements OnInit {
   });
 
   constructor() {
-    addIcons({ logOutOutline, mailOutline, personCircleOutline });
+    addIcons({ arrowBack, logOutOutline, mailOutline, personCircleOutline });
   }
 
   ngOnInit(): void {

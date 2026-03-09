@@ -1,10 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Perfil</ion-title>
+    @if (showEdit()) {
+      <ion-buttons slot="start">
+        <ion-button (click)="showEdit.set(false)" (keyup.enter)="showEdit.set(false)">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Configuración</ion-title>
+    } @else {
+      <ion-title>Perfil</ion-title>
+    }
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  @if (showEdit()) {
+    <app-perfil-edit (closed)="showEdit.set(false)"></app-perfil-edit>
+  } @else {
   <div class="perfil-container">
     <div class="perfil-avatar">
       @if (photoURL()) {
@@ -36,6 +48,13 @@
     <div class="perfil-actions">
       <ion-button
         expand="block"
+        color="primary"
+        (click)="showEdit.set(true)"
+        (keyup.enter)="showEdit.set(true)">
+        Configurar perfil
+      </ion-button>
+      <ion-button
+        expand="block"
         color="medium"
         routerLink="/nuevo"
         (keyup.enter)="logout()">
@@ -51,4 +70,5 @@
       </ion-button>
     </div>
   </div>
+  }
 </ion-content>

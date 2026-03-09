@@ -12,7 +12,7 @@ import { ExperienceLevel } from '../../../../core/services/api.service';
   selector: 'app-onboarding-paso-perfil',
   template: `
     <section>
-      <h2>Sobre ti</h2>
+      <h3>Sobre ti</h3>
       <ion-item>
         <ion-label position="stacked">Nombre</ion-label>
         <ion-input

@@ -6,7 +6,7 @@ import { DecimalPipe } from '@angular/common';
   selector: 'app-onboarding-paso-ubicacion',
   template: `
     <section>
-      <h2>Ubicación</h2>
+      <h3>Ubicación</h3>
       <p class="onboarding__hint">
         Opcional, pero nos ayuda a mostrarte partidas y eventos cerca de ti.
       </p>

@@ -1,0 +1,113 @@
+import { Component, OnInit, inject, output, signal } from '@angular/core';
+import {
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonSegment,
+  IonSegmentButton,
+  IonSpinner,
+} from '@ionic/angular/standalone';
+import { AuthService } from '../../../../core/services/auth.service';
+import { ApiService, ExperienceLevel } from '../../../../core/services/api.service';
+import { Wargame } from '../../../../shared/models/IWargame';
+import { PasoJuegosOnboardingComponent } from '../../../onboarding/components/paso-juegos/paso-juegos';
+import { PasoUbicacionOnboardingComponent } from '../../../onboarding/components/paso-ubicacion/paso-ubicacion';
+
+@Component({
+  selector: 'app-perfil-edit',
+  templateUrl: './perfil-edit.html',
+  styleUrl: './perfil-edit.scss',
+  imports: [
+    IonItem,
+    IonLabel,
+    IonButton,
+    IonSegment,
+    IonSegmentButton,
+    IonSpinner,
+    PasoJuegosOnboardingComponent,
+    PasoUbicacionOnboardingComponent,
+  ],
+})
+export class PerfilEditComponent implements OnInit {
+  private readonly auth = inject(AuthService);
+  private readonly api = inject(ApiService);
+
+  closed = output<void>();
+
+  experienceLevel = signal<ExperienceLevel | null>(null);
+  favoriteGamesIds = signal<string[]>([]);
+  wargames = signal<Wargame[]>([]);
+  location = signal<[number, number] | null>(null);
+  locationLoading = signal(false);
+  saving = signal(false);
+  errorMessage = signal<string | null>(null);
+
+  ngOnInit(): void {
+    const current = this.auth.user();
+    if (current) {
+      this.experienceLevel.set(current.experienceLevel ?? null);
+      this.favoriteGamesIds.set(current.favoriteGames ?? []);
+      const coords = current.location?.coordinates;
+      if (coords?.length === 2) {
+        const [lng, lat] = coords;
+        this.location.set([lat, lng]);
+      }
+    }
+
+    this.api.getWargames().subscribe({
+      next: (games) => this.wargames.set(games),
+      error: () => this.errorMessage.set('No se pudieron cargar los juegos.'),
+    });
+  }
+
+  setExperience(level: ExperienceLevel): void {
+    this.experienceLevel.set(level);
+  }
+
+  usarUbicacionActual(): void {
+    if (!('geolocation' in navigator)) {
+      this.errorMessage.set('La geolocalización no está disponible en este navegador.');
+      return;
+    }
+    this.locationLoading.set(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        this.location.set([pos.coords.latitude, pos.coords.longitude]);
+        this.locationLoading.set(false);
+      },
+      () => {
+        this.locationLoading.set(false);
+        this.errorMessage.set('No se pudo obtener tu ubicación.');
+      },
+    );
+  }
+
+  async save(): Promise<void> {
+    this.saving.set(true);
+    this.errorMessage.set(null);
+    try {
+      const coords = this.location();
+      let locationPayload: { type: 'Point'; coordinates: [number, number] } | null = null;
+      if (coords) {
+        locationPayload = { type: 'Point', coordinates: [coords[1], coords[0]] };
+      }
+
+      await this.auth.updateProfile({
+        experienceLevel: this.experienceLevel() ?? undefined,
+        favoriteGames: this.favoriteGamesIds(),
+        location: locationPayload,
+      });
+      this.closed.emit();
+    } catch (err) {
+      this.errorMessage.set(
+        err instanceof Error ? err.message : 'No se pudo guardar el perfil.',
+      );
+    } finally {
+      this.saving.set(false);
+    }
+  }
+
+  cancel(): void {
+    this.closed.emit();
+  }
+}

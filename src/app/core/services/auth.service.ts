@@ -114,4 +114,14 @@ export class AuthService {
     }
     this.user.set(updated);
   }
+
+  async updateProfile(payload: UpdateProfilePayload): Promise<void> {
+    const updated = await firstValueFrom(this.api.updateProfile(payload));
+
+    const token = this.getToken();
+    if (token) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, user: updated }));
+    }
+    this.user.set(updated);
+  }
 }
