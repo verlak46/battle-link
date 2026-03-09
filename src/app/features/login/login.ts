@@ -38,7 +38,7 @@ export class LoginPage {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
 
-  readonly logoUrl = '/logo.png';
+  readonly logoUrl = '/logo_white.png';
 
   /** 'login' | 'register' */
   mode = signal<'login' | 'register'>('login');

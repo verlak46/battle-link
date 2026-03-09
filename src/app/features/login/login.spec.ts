@@ -46,9 +46,9 @@ describe('LoginPage', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should use logo at /logo.png', () => {
+  it('should use logo at /logo_white.png', () => {
     const fixture = TestBed.createComponent(LoginPage);
-    expect(fixture.componentInstance.logoUrl).toBe('/logo.png');
+    expect(fixture.componentInstance.logoUrl).toBe('/logo_white.png');
   });
 
   it('should default to login mode', () => {
