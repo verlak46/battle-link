@@ -106,7 +106,7 @@ export class AuthService {
       ...partial,
       onboardingCompleted: true,
     };
-    const updated = await firstValueFrom(this.api.updateProfile(payload));
+    const updated = await firstValueFrom(this.api.completeOnboarding(payload));
 
     const token = this.getToken();
     if (token) {

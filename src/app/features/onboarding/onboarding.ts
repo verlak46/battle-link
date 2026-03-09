@@ -4,14 +4,6 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonButton,
-  IonList,
-  IonChip,
-  IonSegment,
-  IonSegmentButton,
   IonSpinner,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -20,8 +12,11 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { ApiService, ExperienceLevel } from '../../core/services/api.service';
 import { Wargame } from '../../shared/models/IWargame';
-import { DecimalPipe } from '@angular/common';
 import { StepHeaderComponent } from '../nuevo/components/step-header/step-header';
+import { PasoPerfilOnboardingComponent } from './components/paso-perfil/paso-perfil';
+import { PasoJuegosOnboardingComponent } from './components/paso-juegos/paso-juegos';
+import { PasoUbicacionOnboardingComponent } from './components/paso-ubicacion/paso-ubicacion';
+import { OnboardingStepNavComponent } from './components/step-nav/onboarding-step-nav';
 
 @Component({
   selector: 'app-onboarding',
@@ -32,17 +27,12 @@ import { StepHeaderComponent } from '../nuevo/components/step-header/step-header
     IonToolbar,
     IonTitle,
     IonContent,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonButton,
-    IonList,
-    IonChip,
-    IonSegment,
-    IonSegmentButton,
     IonSpinner,
-    DecimalPipe,
     StepHeaderComponent,
+    PasoPerfilOnboardingComponent,
+    PasoJuegosOnboardingComponent,
+    PasoUbicacionOnboardingComponent,
+    OnboardingStepNavComponent,
   ],
 })
 export class OnboardingPage implements OnInit {
@@ -119,20 +109,6 @@ export class OnboardingPage implements OnInit {
     });
   }
 
-  seleccionarExperiencia(level: ExperienceLevel) {
-    this.experienceLevel.set(level);
-  }
-
-  toggleFavorite(id: string) {
-    this.favoriteGamesIds.update((ids) =>
-      ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id],
-    );
-  }
-
-  esFavorito(id: string): boolean {
-    return this.favoriteGamesIds().includes(id);
-  }
-
   siguiente() {
     if (!this.esPasoValido()) return;
     if (!this.esUltimoPaso()) {
@@ -187,7 +163,7 @@ export class OnboardingPage implements OnInit {
         favoriteGames: this.favoriteGamesIds(),
         location,
       });
-
+      console.log('onboarding completado');
       this.router.navigate(['/']);
     } catch (err) {
       const message =

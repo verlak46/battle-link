@@ -75,7 +75,11 @@ export class ApiService {
     return this.http.get<{ user: AuthUser }>(`${this.baseUrl}/user/profile`).pipe(map((res) => res.user));
   }
 
+  completeOnboarding(payload: UpdateProfilePayload): Observable<AuthUser> {
+    return this.http.post<{ user: AuthUser }>(`${this.baseUrl}/user/onboarding`, payload).pipe(map((res) => res.user));
+  }
+
   updateProfile(payload: UpdateProfilePayload): Observable<AuthUser> {
-    return this.http.patch<AuthUser>(`${this.baseUrl}/user/profile`, payload);
+    return this.http.patch<{ user: AuthUser }>(`${this.baseUrl}/user/profile`, payload).pipe(map((res) => res.user));
   }
 }
