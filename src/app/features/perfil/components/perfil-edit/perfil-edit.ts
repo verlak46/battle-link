@@ -18,7 +18,6 @@ import { PasoUbicacionOnboardingComponent } from '../../../onboarding/components
   templateUrl: './perfil-edit.html',
   styleUrl: './perfil-edit.scss',
   imports: [
-    IonItem,
     IonLabel,
     IonButton,
     IonSegment,
