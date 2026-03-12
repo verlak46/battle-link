@@ -1,4 +1,5 @@
 import { Component, OnInit, inject, output, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   IonItem,
   IonLabel,
@@ -40,7 +41,7 @@ export class PerfilEditComponent implements OnInit {
   nick = signal('');
   experienceLevel = signal<ExperienceLevel | null>(null);
   favoriteGamesIds = signal<string[]>([]);
-  wargames = signal<Wargame[]>([]);
+  wargames = toSignal(this.api.getWargames(), { initialValue: [] as Wargame[] });
   location = signal<[number, number] | null>(null);
   locationLoading = signal(false);
   saving = signal(false);
@@ -59,10 +60,6 @@ export class PerfilEditComponent implements OnInit {
       }
     }
 
-    this.api.getWargames().subscribe({
-      next: (games) => this.wargames.set(games),
-      error: () => this.errorMessage.set('No se pudieron cargar los juegos.'),
-    });
   }
 
   setExperience(level: ExperienceLevel): void {

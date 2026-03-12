@@ -1,4 +1,5 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { gameControllerOutline, locationOutline } from 'ionicons/icons';
@@ -39,7 +40,7 @@ export class OnboardingPage implements OnInit {
   loading = signal(false);
   errorMessage = signal<string | null>(null);
 
-  wargames = signal<Wargame[]>([]);
+  wargames = toSignal(this.api.getWargames(), { initialValue: [] as Wargame[] });
 
   name = signal('');
   nick = signal('');
@@ -96,14 +97,6 @@ export class OnboardingPage implements OnInit {
       }
     }
 
-    this.loading.set(true);
-    this.api.getWargames().subscribe({
-      next: (games) => this.wargames.set(games),
-      error: () => {
-        this.errorMessage.set('No se pudieron cargar los juegos.');
-      },
-      complete: () => this.loading.set(false),
-    });
   }
 
   siguiente() {

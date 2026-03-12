@@ -60,7 +60,9 @@ export class PerfilPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.ready.then(() => this.auth.refreshProfile());
+    this.auth.ready
+      .then(() => this.auth.refreshProfile())
+      .catch(() => { /* sesión restaurada desde caché, fallo silencioso aceptable */ });
   }
 
   async logout() {
